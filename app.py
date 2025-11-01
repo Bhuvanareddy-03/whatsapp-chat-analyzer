@@ -21,6 +21,10 @@ if uploaded_file is not None:
 
     st.markdown(f"**Analyzing messages from {start_date} to {end_date}**")
 
+    # ✅ Show chat messages at the top
+    st.title("📄 Chat Preview")
+    st.dataframe(df[['dates', 'user', 'message']])
+
     user_list = df['user'].unique().tolist()
     if 'group_notification' in user_list:
         user_list.remove('group_notification')
@@ -101,7 +105,7 @@ if uploaded_file is not None:
         st.subheader("All Emojis Used in Chat")
         st.dataframe(emoji_df)
 
-        
+       
 
         # ✅ Emoji emotion summary
         st.title("Emoji Emotion Summary")
@@ -120,4 +124,3 @@ if uploaded_file is not None:
         fig, ax = plt.subplots()
         ax.pie(sentiment_df['messages'], labels=sentiment_df['sentiment'], autopct="%0.2f")
         st.pyplot(fig)
-
