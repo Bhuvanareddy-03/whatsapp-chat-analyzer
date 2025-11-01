@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 st.set_page_config(layout="wide")
-st.sidebar.title("Whatsapp Chat Analyzer")
+st.sidebar.title("WhatsApp Chat Analyzer")
 
 uploaded_file = st.sidebar.file_uploader("Choose a file")
 if uploaded_file is not None:
@@ -20,7 +20,6 @@ if uploaded_file is not None:
     df = df[(df['only_date'].dt.date >= start_date) & (df['only_date'].dt.date <= end_date)]
 
     st.markdown(f"**Analyzing messages from {start_date} to {end_date}**")
-    st.dataframe(df)
 
     user_list = df['user'].unique().tolist()
     if 'group_notification' in user_list:
@@ -95,10 +94,6 @@ if uploaded_file is not None:
         plt.xticks(rotation='vertical')
         st.pyplot(fig)
 
-        st.subheader("Download Word Frequency Data")
-        word_csv = most_common_df.to_csv(index=False).encode('utf-8')
-        st.download_button("Download Word Data as CSV", word_csv, "word_frequency.csv", "text/csv")
-
         # ✅ Emoji analysis
         st.title("Emoji Analysis")
         emoji_df = helper.emoji_helper(selected_user, df)
@@ -108,23 +103,13 @@ if uploaded_file is not None:
 
         st.subheader("Top 5 Emojis (Pie Chart)")
         if not emoji_df.empty:
-            try:
-                fig, ax = plt.subplots()
-                labels = [str(e) for e in emoji_df['emoji'].head()]
-                sizes = emoji_df['count'].head().tolist()
-                ax.pie(sizes, labels=labels, autopct="%0.2f")
-                st.pyplot(fig)
-            except:
-                st.warning("Pie chart failed to render emojis. Showing bar chart instead.")
-                fig, ax = plt.subplots()
-                ax.barh(emoji_df['emoji'].head(), emoji_df['count'].head(), color='skyblue')
-                st.pyplot(fig)
+            fig, ax = plt.subplots()
+            labels = [str(e) for e in emoji_df['emoji'].head()]
+            sizes = emoji_df['count'].head().tolist()
+            ax.pie(sizes, labels=labels, autopct="%0.2f")
+            st.pyplot(fig)
         else:
             st.info("No emojis found in this chat.")
-
-        st.subheader("Download Emoji Usage Data")
-        emoji_csv = emoji_df.to_csv(index=False).encode('utf-8')
-        st.download_button("Download Emoji Data as CSV", emoji_csv, "emoji_usage.csv", "text/csv")
 
         # ✅ Emoji emotion summary
         st.title("Emoji Emotion Summary")
