@@ -7,3 +7,5 @@ WhatsApp Chat Analyzer is a Streamlit-based web app that helps you explore and u
 One of the standout features is emoji analysis. The app extracts all emojis used in the chat, displays their frequency, and visualizes the top ones in a pie chart. It also groups emojis by emotion (happy, sad, angry, annoyed) and shows how often each type appears. Sentiment analysis is included too, using VADER to classify messages as positive, negative, or neutral.
 
 To run the app locally, clone the repository, install the required Python libraries, and launch it with Streamlit. You’ll also need to download the VADER lexicon from NLTK for sentiment analysis. The app is lightweight, easy to deploy, and works well on both desktop and cloud platforms.
+
+link:https://whatsapp-chat-analyzer-kayfzkhjxzxzuznsbrxjsh.streamlit.app/
