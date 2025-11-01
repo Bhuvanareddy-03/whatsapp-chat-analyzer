@@ -1,12 +1,11 @@
 import streamlit as st
 import preprocessor, helper
-import matplotlib
 import matplotlib.pyplot as plt
 import pandas as pd
 
 st.set_page_config(layout="wide")
 st.sidebar.title("Whatsapp Chat Analyzer")
-matplotlib.rcParams['font.family'] = 'Segoe UI Emoji'
+
 uploaded_file = st.sidebar.file_uploader("Choose a file")
 if uploaded_file is not None:
     bytes_data = uploaded_file.getvalue()
@@ -103,19 +102,23 @@ if uploaded_file is not None:
         # ✅ Emoji analysis
         st.title("Emoji Analysis")
         emoji_df = helper.emoji_helper(selected_user, df)
-        st.write("Extracted emojis:", emoji_df)
 
         st.subheader("All Emojis Used in Chat")
         st.dataframe(emoji_df)
 
-        st.subheader("Top 5 Emojis")
+        st.subheader("Top 5 Emojis (Pie Chart)")
         if not emoji_df.empty:
-            fig, ax = plt.subplots()
-            labels = emoji_df['emoji'].head().astype(str).tolist()
-            sizes = emoji_df['count'].head().tolist()
-            ax.pie(sizes, labels=labels, autopct="%0.2f")
-            plt.tight_layout()
-            st.pyplot(fig)
+            try:
+                fig, ax = plt.subplots()
+                labels = [str(e) for e in emoji_df['emoji'].head()]
+                sizes = emoji_df['count'].head().tolist()
+                ax.pie(sizes, labels=labels, autopct="%0.2f")
+                st.pyplot(fig)
+            except:
+                st.warning("Pie chart failed to render emojis. Showing bar chart instead.")
+                fig, ax = plt.subplots()
+                ax.barh(emoji_df['emoji'].head(), emoji_df['count'].head(), color='skyblue')
+                st.pyplot(fig)
         else:
             st.info("No emojis found in this chat.")
 
