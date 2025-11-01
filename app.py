@@ -23,7 +23,7 @@ if uploaded_file is not None:
 
     # ✅ Show chat messages at the top
     st.title("📄 Chat Preview")
-    st.dataframe(df[['dates', 'user', 'message']])
+    st.dataframe(df[['dates', 'user', 'message']], use_container_width=False)
 
     user_list = df['user'].unique().tolist()
     if 'group_notification' in user_list:
@@ -80,7 +80,7 @@ if uploaded_file is not None:
                 plt.xticks(rotation='vertical')
                 st.pyplot(fig)
             with col2:
-                st.dataframe(new_df)
+                st.dataframe(new_df, use_container_width=False)
 
         # Word cloud
         st.title("Word Cloud")
@@ -103,14 +103,14 @@ if uploaded_file is not None:
         emoji_df = helper.emoji_helper(selected_user, df)
 
         st.subheader("All Emojis Used in Chat")
-        st.dataframe(emoji_df)
+        st.dataframe(emoji_df, use_container_width=False)
 
        
 
         # ✅ Emoji emotion summary
         st.title("Emoji Emotion Summary")
         emotion_df = helper.emoji_emotion_summary(selected_user, df)
-        st.dataframe(emotion_df)
+        st.dataframe(emotion_df, use_container_width=False)
 
         fig, ax = plt.subplots()
         ax.bar(emotion_df['emotion'], emotion_df['count'], color=['green', 'blue', 'red', 'orange'])
@@ -119,7 +119,7 @@ if uploaded_file is not None:
         # ✅ Sentiment analysis
         st.title("Sentiment Analysis")
         sentiment_df = helper.sentiment_analysis(selected_user, df)
-        st.dataframe(sentiment_df)
+        st.dataframe(sentiment_df, use_container_width=False)
 
         fig, ax = plt.subplots()
         ax.pie(sentiment_df['messages'], labels=sentiment_df['sentiment'], autopct="%0.2f")
