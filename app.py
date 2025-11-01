@@ -101,15 +101,7 @@ if uploaded_file is not None:
         st.subheader("All Emojis Used in Chat")
         st.dataframe(emoji_df)
 
-        st.subheader("Top 5 Emojis (Pie Chart)")
-        if not emoji_df.empty:
-            fig, ax = plt.subplots()
-            labels = [str(e) for e in emoji_df['emoji'].head()]
-            sizes = emoji_df['count'].head().tolist()
-            ax.pie(sizes, labels=labels, autopct="%0.2f")
-            st.pyplot(fig)
-        else:
-            st.info("No emojis found in this chat.")
+        
 
         # ✅ Emoji emotion summary
         st.title("Emoji Emotion Summary")
@@ -128,3 +120,4 @@ if uploaded_file is not None:
         fig, ax = plt.subplots()
         ax.pie(sentiment_df['messages'], labels=sentiment_df['sentiment'], autopct="%0.2f")
         st.pyplot(fig)
+
