@@ -8,4 +8,4 @@ One of the standout features is emoji analysis. The app extracts all emojis used
 
 To run the app locally, clone the repository, install the required Python libraries, and launch it with Streamlit. You’ll also need to download the VADER lexicon from NLTK for sentiment analysis. The app is lightweight, easy to deploy, and works well on both desktop and cloud platforms.
 
-link:https://whatsapp-chat-analyzer-kayfzkhjxzxzuznsbrxjsh.streamlit.app/
+link:https://whatsapp-chat-analyzer-a9jqlabx7sz6xbjel4wokd.streamlit.app/
